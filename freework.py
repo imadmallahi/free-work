@@ -41,6 +41,8 @@ logging.basicConfig(
 log = logging.getLogger()
 
 COOKIES_FILE = "freework_cookies.json"
+APPLIED_FILE = "applied.json"
+
 # Credentials from environment variables
 EMAIL = os.environ.get("FREEWORK_EMAIL")
 PASSWORD = os.environ.get("FREEWORK_PASSWORD")
@@ -49,12 +51,25 @@ if not EMAIL or not PASSWORD:
     log.error("❌ Erreur: FREEWORK_EMAIL et FREEWORK_PASSWORD doivent être définis dans .env")
     exit(1)
 
+def load_applied():
+    """Charge la liste des offres déjà postulées"""
+    try:
+        with open(APPLIED_FILE, "r") as f:
+            return set(json.load(f))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return set()
+
+def save_applied(applied_set):
+    """Sauvegarde la liste des offres déjà postulées"""
+    with open(APPLIED_FILE, "w") as f:
+        json.dump(list(applied_set), f, indent=2)
+
 QUERYS = [
   "Full stack developper",  "java", "angular", "spring boot", "Backend Java", "Développeur Java",
     "Java Spring Boot", "Tech Lead Java", "Lead Backend Java", "technical leader", "tech lead",
 ]
 
-DRY_RUN = False  # The script will now actually click the submit button
+DRY_RUN = False  # Mode réel : le bot clique sur "Je postule"
 
 TEXT_TEMPLATE = os.environ.get("FREEWORK_TEMPLATE")
 if not TEXT_TEMPLATE:
@@ -130,6 +145,7 @@ Règles strictes :
         if message.startswith('"') and message.endswith('"'):
             message = message[1:-1]
         log.info(f"🤖 Message personnalisé généré ({len(message)} chars)")
+        log.info(f"📨 Message envoyé:\n{message}")
         return message
     except Exception as e:
         log.warning(f"⚠️ Fallback au template statique: {e}")
@@ -406,19 +422,22 @@ def postuler(driver, url, title):
             return True
 
         # Cliquer sur le bouton
-        driver.execute_script("arguments[0].click();", submit)
-        sleep(3)
-        
-        # Attendre la confirmation
         try:
-            success_message = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, "//*[contains(text(), 'postulat')]"))
-            )
-            log.info("✅ Envoyée")
-            return True
-        except TimeoutException:
-            log.info("✅ Envoyée (pas de confirmation visible)")
-            return True
+            driver.execute_script("arguments[0].click();", submit)
+            sleep(5)
+            
+            # Attendre la confirmation
+            try:
+                WebDriverWait(driver, 10).until(
+                    EC.presence_of_element_located((By.XPATH, "//*[contains(text(), 'postulat')]"))
+                )
+                log.info("✅ Envoyée")
+            except TimeoutException:
+                log.info("✅ Envoyée (pas de confirmation visible)")
+        except Exception as e:
+            log.warning(f"⚠️ Erreur après clic submit (candidature probablement envoyée): {e}")
+        
+        return True
         
     except Exception as e:
         log.error(f"❌ Erreur: {e}")
@@ -428,6 +447,8 @@ def run():
     """Fonction principale"""
     driver = get_driver()
     sent = 0
+    applied_urls = load_applied()
+    log.info(f"📊 {len(applied_urls)} offres déjà postulées en mémoire")
 
     try:
         # Connexion
@@ -474,9 +495,16 @@ def run():
 
                 # Traiter chaque offre collectée
                 for job in jobs_to_apply:
+                    # Vérifier si déjà postulé
+                    if job["href"] in applied_urls:
+                        log.info(f"⏩ Déjà postulé (skip): {job['title']}")
+                        continue
+
                     try:
                         if postuler(driver, job["href"], job["title"]):
                             sent += 1
+                            applied_urls.add(job["href"])
+                            save_applied(applied_urls)
                             # Random sleep pour éviter les blocages
                             sleep(random.uniform(5, 8))
                         else:
