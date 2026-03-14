@@ -1,0 +1,57 @@
+IMAD EL MALLAHI
+INGÉNIEUR LOGICIEL FULLSTACK
++33 7 59 60 77 79
+mellahi.imad1@gmail.com
+https://www.linkedin.com/in/imad-el-mallahi/
+https://imadmallahi.github.io/personal-portfolio/
+https://github.com/imadmallahi
+Paris, France
+
+FORMATIONS
+- Master Web Intelligence et Sciences Des Données, Faculté des Sciences Dhar El Mahraz de Fès (2018-2020)
+- Licence en Sciences Mathématiques et Informatiques, Faculté des Sciences Dhar El Mahraz de Fès (2018)
+- DEUST, Faculté des Sciences et Techniques de Fes (2015-2017)
+
+COMPÉTENCES
+Langages: Java, Python, JavaScript, TypeScript, C++
+Technologies Web: Spring, EJB, JSF, Swagger, Angular, React
+Test et qualité: JUnit 5, Mockito, JMeter, SonarQube
+DevOps & Cloud: GitLab CI, Wildfly 24, WebSphere, Docker, Kubernetes, IBM Cloud, GCP
+Bases de données: SQL Server, MySQL, Oracle
+IDE: Eclipse, IntelliJ, VSCode, Postman
+Méthodologie: UML, Merise, POO, SCRUM, Kanban
+Langues: Anglais, Français, Arabe
+
+EXPÉRIENCE PROFESSIONNELLE
+
+Consultant Full Stack - ILINQSOFT SASU chez BNP Paribas (Février 2025 - Présent, Paris)
+- Conception et développement d'applications bancaires performantes
+- Interface utilisateur avec Angular Material
+- Implémentation de couches de sécurité
+- Tests unitaires (JUnit 5), SonarQube
+- Optimisation des performances via modules lazy-loaded
+Stack: Java 17, Spring Boot 3.X, Angular 16, Jenkins, GitLab, JFROG, Oracle, SonarQube, Docker, Kubernetes, IBM Cloud
+
+Ingénieur Fullstack Confirmé - Eviden chez TDF (Décembre 2024 - Février 2025, Casablanca)
+- Architecture hexagonale
+- API Spring Boot pour gestion des gabarits
+- Interface Angular Material, sécurité Keycloak
+Stack: Java 21, Spring Boot 3.X, Angular 17, Jenkins, GitLab, MongoDB, Oracle, SonarQube, Kafka
+
+Ingénieur Fullstack - EURAFRIC INFORMATION chez BMCE/BES (Septembre 2022 - Décembre 2024, Casablanca)
+- Applications bancaires, système KYC, automatisation OCR
+- Spring Batch pour traitement intensif de données
+- Sécurité JWT et Spring Security
+- Intégration ABBYY OCR
+Stack: Java 8, Spring Boot 2.X, Angular 14, TypeScript, SQL Server, Jenkins, GitLab, Oracle, SonarQube
+
+Java Consultant - Corporate Software chez EAI (Septembre 2021 - Septembre 2022, Casablanca)
+- Application Spring Boot + Angular pour recherche redevables BMCE
+- Graphiques NGX-Charts, migration Angular 15
+- Tests unitaires JUnit 5, SonarQube
+Stack: Java 8, Angular 14, Git, GitLab CI/CD, TypeScript, Angular Material, Bootstrap, Swagger, Jira
+
+Ingénieur Fullstack - E-marketing Solution (Février 2021 - Septembre 2021, Fès)
+- Applications web gestion réquisitions et guides d'achat
+- Services RESTful, Spring Security, JWT, Log4j2
+Stack: Java, Spring Boot, Spring Security

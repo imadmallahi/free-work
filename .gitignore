@@ -1,0 +1,23 @@
+# Environnement virtuel Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Fichiers sensibles (clés API, mots de passe)
+.env
+
+# Cookies de session
+freework_cookies.json
+
+# Logs
+logs/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
